@@ -6,11 +6,11 @@ let todoValue = ""
 console.log(addTodo);
 console.log(form)
 
-const addTemplate = (elementValue, htmlTag) => {
+const addTemplate = (elementValue, htmlTag, index) => {
     const todoTemplate = `                     
                 <div>
-                    <input type="checkbox" id="todo${localStorage.length}"/>
-                    <label for="todo${localStorage.length}">${elementValue}</label>
+                    <input type="checkbox" id="todo${index}"/>
+                    <label for="todo${index}">${elementValue}</label>
                     <div class="update">
                         <input type="button" value="Edit" class="editTodo">
                         <input type="button" value="Delete" class="deleteTodo">
@@ -22,13 +22,16 @@ const addTemplate = (elementValue, htmlTag) => {
 
 const populateLi = () => {
     //get allitems in localStorage
+    let count = 0
     const allItems = { ...localStorage }
     console.log(allItems);
     for (let key in allItems) {
         const li = document.createElement("li");
+        console.log(count)
         console.log(allItems[key]);
-        addTemplate(allItems[key], li);
+        addTemplate(allItems[key], li , count);
         todoList.appendChild(li);
+        count = count + 1;
     }
 
 }
@@ -53,7 +56,7 @@ form.addEventListener("submit", (event) => {
     todoValue = addTodo.value
 
     // li.innerHTML = todoTemplate
-    addTemplate(addTodo.value, li);
+    addTemplate(addTodo.value, li, localStorage.length);
     todoList.appendChild(li);
 
 })
@@ -68,5 +71,11 @@ form.addEventListener("submit", (event) => {
 */
 
 todoList.addEventListener("click", (event) => {
-    console.log(event.target);
+    const clickTarget = event.target
+    console.log(clickTarget);
+    if(clickTarget.classList.contains("editTodo")) {
+        console.log("Edit button detected")
+    } else if(clickTarget.classList.contains("deleteTodo")) {
+        console.log("Delete the contains of this tag");
+    }
 })
