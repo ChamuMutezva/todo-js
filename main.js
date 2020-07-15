@@ -59,10 +59,14 @@ form.addEventListener("submit", (event) => {
 })
 
 
-//if (typeof(editTodo) != "undefined" && editTodo != null){
+/*if (typeof(editTodo) != "undefined" && editTodo != null){
     editTodo.addEventListener("click", () => {
         const childName = localStorage.getItem("todo1");
         console.log(childName);
     })
 //}
+*/
 
+todoList.addEventListener("click", (event) => {
+    console.log(event.target);
+})
