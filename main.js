@@ -69,10 +69,12 @@ form.addEventListener("submit", (event) => {
 */
 
 todoList.addEventListener("click", (event) => {
+    const updateRecords = document.querySelector(".updateRecords");
     const clickTarget = event.target
     console.log(clickTarget);
     if (clickTarget.classList.contains("editTodo")) {
         console.log("Edit button detected")
+        updateRecords.classList.toggle("showUpdateRecords");
     } else if (clickTarget.classList.contains("deleteTodo")) {
         const allItems = { ...localStorage }
         console.log(clickTarget.classList[1])

@@ -5,9 +5,8 @@
     top: 0;
     position: absolute;
     background: aqua;
-    padding: 20px;
-    visibility: hidden;
+    padding: 20px;   
 }
 .showUpdateRecords {
-    visibility: visible;
+    visibility: hidden;
 }
