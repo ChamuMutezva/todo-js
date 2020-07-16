@@ -6,14 +6,15 @@ let todoValue = ""
 console.log(addTodo);
 console.log(form)
 
-const addTemplate = (elementValue, htmlTag, index) => {
-    const todoTemplate = `               
-                
-                    <input type="checkbox" id="${index}"/>
-                    <label for="${index}">${elementValue}</label>
+const addTemplate = (elementValue, htmlTag, indexed) => {
+    const todoTemplate = `          
+                                   
+                    <label> 
+                         <input type="checkbox" id="${indexed}"/>  ${elementValue}
+                    </label>
                     <div class="update">
-                        <input type="button" value="Edit" class="editTodo">
-                        <input type="button" value="Delete" class="deleteTodo">
+                        <input type="button" value="Edit" class="editTodo ${indexed}">
+                        <input type="button" value="Delete" class="deleteTodo ${indexed}">
                     </div>
                  `
     htmlTag.innerHTML = todoTemplate
@@ -29,7 +30,7 @@ const populateLi = () => {
         const li = document.createElement("li");
         console.log(count)
         console.log(allItems[key], key);
-        addTemplate(allItems[key], li , key);
+        addTemplate(allItems[key], li, key);
         todoList.appendChild(li);
         count = count + 1;
     }
@@ -50,10 +51,10 @@ form.addEventListener("submit", (event) => {
     console.log(addTodo.value);
     console.log("Localstotage ", localStorage.length)
     localStorage.setItem("todo" + localStorage.length, addTodo.value);
-   // todoValue = todo + addTodo.value
+    // todoValue = todo + addTodo.value
 
     // li.innerHTML = todoTemplate
-    addTemplate(addTodo.value, li,"todo" + localStorage.length);
+    addTemplate(addTodo.value, li, "todo" + localStorage.length);
     todoList.appendChild(li);
 
 })
@@ -70,12 +71,22 @@ form.addEventListener("submit", (event) => {
 todoList.addEventListener("click", (event) => {
     const clickTarget = event.target
     console.log(clickTarget);
-    if(clickTarget.classList.contains("editTodo")) {
+    if (clickTarget.classList.contains("editTodo")) {
         console.log("Edit button detected")
-    } else if(clickTarget.classList.contains("deleteTodo")) {
+    } else if (clickTarget.classList.contains("deleteTodo")) {
+        const allItems = { ...localStorage }
+        console.log(clickTarget.classList[1])
+        for (let key in allItems) {           
+            console.log(allItems[key], key);
+            if (key == clickTarget.classList[1]){
+                console.log(key);
+                localStorage.removeItem(key);
+            }
+            
+        }
         console.log("Delete the contains of this tag");
         //clickTarget.closest("li") to find nearest li tag - in this case parent
-        console.log(clickTarget.closest("li"));
-        todoList.removeChild(clickTarget.closest("li"));
+        console.log(clickTarget.closest("li"));      
+       todoList.removeChild(clickTarget.closest("li"));
     }
 })
