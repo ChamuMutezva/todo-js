@@ -1,0 +1,13 @@
+.container {
+    position: relative;
+}
+.updateRecords {
+    top: 0;
+    position: absolute;
+    background: aqua;
+    padding: 20px;
+    visibility: hidden;
+}
+.showUpdateRecords {
+    visibility: visible;
+}
