@@ -1,6 +1,14 @@
 const addTodo = document.querySelector(".addTodo"); // input text for adding todo item
 const form = document.querySelector("form");
-const editTodo = document.querySelector("#editTodo");
+const gotoEditTodo = document.querySelector("#gotoEditTodo");
+const updateRecords = document.querySelector(".updateRecords");
+//edit section variables
+const editTodo = document.querySelector(".editedTodo");
+const saveTodo = document.querySelector(".saveTodo");
+let storageKey = "";
+console.log(editTodo)
+
+//end edit section
 const todoList = document.querySelector(".todoList")
 let todoValue = ""
 console.log(addTodo);
@@ -10,10 +18,10 @@ const addTemplate = (elementValue, htmlTag, indexed) => {
     const todoTemplate = `          
                                    
                     <label> 
-                         <input type="checkbox" id="${indexed}"/>  ${elementValue}
+                         <input type="checkbox" id="${indexed}"/> <span>${elementValue}</span>
                     </label>
                     <div class="update">
-                        <input type="button" value="Edit" class="editTodo ${indexed}">
+                        <input type="button" value="Edit" class="gotoEditTodo ${indexed}">
                         <input type="button" value="Delete" class="deleteTodo ${indexed}">
                     </div>
                  `
@@ -60,8 +68,8 @@ form.addEventListener("submit", (event) => {
 })
 
 
-/*if (typeof(editTodo) != "undefined" && editTodo != null){
-    editTodo.addEventListener("click", () => {
+/*if (typeof(gotoEditTodo) != "undefined" && gotoEditTodo != null){
+    gotoEditTodo.addEventListener("click", () => {
         const childName = localStorage.getItem("todo1");
         console.log(childName);
     })
@@ -69,26 +77,65 @@ form.addEventListener("submit", (event) => {
 */
 
 todoList.addEventListener("click", (event) => {
-    const updateRecords = document.querySelector(".updateRecords");
+
     const clickTarget = event.target
     console.log(clickTarget);
-    if (clickTarget.classList.contains("editTodo")) {
+    if (clickTarget.classList.contains("gotoEditTodo")) {
         console.log("Edit button detected")
+      /*  const allItems = { ...localStorage }
+        console.log(clickTarget.classList[1])
+        for (let key in allItems) {
+            console.log(allItems[key], key);
+            if (key == clickTarget.classList[1]) {
+                console.log(key, allItems[key]);
+                editTodo.value = allItems[key];
+                storageKey = key;
+            }
+
+        } */
+        rewriteTodo(clickTarget.classList[1]);
         updateRecords.classList.toggle("showUpdateRecords");
     } else if (clickTarget.classList.contains("deleteTodo")) {
         const allItems = { ...localStorage }
         console.log(clickTarget.classList[1])
-        for (let key in allItems) {           
+        for (let key in allItems) {
             console.log(allItems[key], key);
-            if (key == clickTarget.classList[1]){
+            if (key == clickTarget.classList[1]) {
                 console.log(key);
                 localStorage.removeItem(key);
             }
-            
+
         }
         console.log("Delete the contains of this tag");
         //clickTarget.closest("li") to find nearest li tag - in this case parent
-        console.log(clickTarget.closest("li"));      
-       todoList.removeChild(clickTarget.closest("li"));
+        console.log(clickTarget.closest("li"));
+        todoList.removeChild(clickTarget.closest("li"));
     }
 })
+
+// edit records
+const rewriteTodo = (keyTarget) => {
+    const allItems = { ...localStorage }  
+    for (let key in allItems) {
+        console.log(allItems[key], key);
+        if (key == keyTarget) {
+            console.log(key, allItems[key]);
+            editTodo.value = allItems[key];
+            storageKey = key;
+        }
+
+    }
+}
+
+//update records
+const newUpdatedRecords = () => {
+    localStorage.setItem(storageKey, editTodo.value);
+    updateRecords.classList.toggle("showUpdateRecords");
+    //change the text in the span 
+    const spanLabel = document.getElementById(storageKey);
+    const nextSpan = spanLabel.nextElementSibling
+    nextSpan.innerHTML = editTodo.value;
+    console.log(nextSpan);
+}
+
+saveTodo.addEventListener("click", newUpdatedRecords)
