@@ -8,6 +8,7 @@ const updateRecords = document.querySelector(".updateRecords");
 const editTodo = document.querySelector(".editedTodo");
 const saveTodo = document.querySelector(".saveTodo");
 const cancelEdit = document.querySelector(".cancelEdit");
+let count = 0;
 let storageKey = "";
 console.log(editTodo)
 
@@ -34,16 +35,16 @@ const addTemplate = (elementValue, htmlTag, indexed) => {
 
 const populateLi = () => {
     //get allitems in localStorage
-    let count = 0
+   // let count = 0
     const allItems = { ...localStorage }
     console.log(allItems);
     for (let key in allItems) {
         const li = document.createElement("li");
-        console.log(count)
+       // console.log(count)
         console.log(allItems[key], key);
         addTemplate(allItems[key], li, key);
         todoList.appendChild(li);
-        count = count + 1;
+        //count = count + 1;
     }
 
 }
@@ -60,13 +61,26 @@ form.addEventListener("submit", (event) => {
     event.preventDefault()
     console.log(event)
     console.log(addTodo.value);
-    console.log("Localstotage ", localStorage.length)
-    localStorage.setItem("todo" + localStorage.length, addTodo.value);
+    if (count == 0) {
+        count = localStorage.length + 1;
+    }
+    let keyCount = "todo" + count;
+    console.log(`Key count is ${keyCount}`);
+
+    // check if there is a similar key udpate count until no match is found
+    do {
+        count = count + 1;
+        keyCount = "todo" + count;
+    } while ((keyCount in {...localStorage}));
+
+    console.log("Localstorage ", count) //changed localStorage.length to count
+    localStorage.setItem(keyCount , addTodo.value); //changed localStorage.length to count
     // todoValue = todo + addTodo.value
 
     // li.innerHTML = todoTemplate
-    addTemplate(addTodo.value, li, "todo" + localStorage.length);
+    addTemplate(addTodo.value, li, "todo" + count); //changed localStorage.length to count
     todoList.appendChild(li);
+    count = count + 1; //set new key value
 
 })
 
