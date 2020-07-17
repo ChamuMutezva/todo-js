@@ -2,7 +2,7 @@ const addTodo = document.querySelector(".addTodo"); // input text for adding tod
 const form = document.querySelector("form");
 const gotoEditTodo = document.querySelector("#gotoEditTodo");
 const updateRecords = document.querySelector(".updateRecords");
-
+const clearAllRecords = document.querySelector(".clearAll");
 
 //edit section variables
 const editTodo = document.querySelector(".editedTodo");
@@ -103,7 +103,7 @@ todoList.addEventListener("click", (event) => {
         rewriteTodo(clickTarget.classList[1]);
         updateRecords.classList.toggle("showUpdateRecords");
     } else if (clickTarget.classList.contains("deleteTodo")) {      
-        deleteRecords(clickTarget.classList[1]);
+        deleteRecord(clickTarget.classList[1]);
         console.log("Delete the contains of this tag");
         //clickTarget.closest("li") to find nearest li tag - in this case parent
         console.log(clickTarget.closest("li"));
@@ -149,9 +149,9 @@ const cancelUpdate = () => {
 
 cancelEdit.addEventListener("click", cancelUpdate)
 
-//delete records
+//delete a single record
 
-const deleteRecords = (keyTarget) => {
+const deleteRecord = (keyTarget) => {
       const allItems = { ...localStorage }       
         for (let key in allItems) {
             console.log(allItems[key], key);
@@ -162,3 +162,12 @@ const deleteRecords = (keyTarget) => {
 
         }
 }
+
+//delete all Records
+const deleteAllRecords = () => {
+    localStorage.clear()
+    while(todoList.firstChild){
+        todoList.removeChild(todoList.firstChild);
+    }   
+}
+clearAllRecords.addEventListener("click", deleteAllRecords);
