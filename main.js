@@ -2,9 +2,12 @@ const addTodo = document.querySelector(".addTodo"); // input text for adding tod
 const form = document.querySelector("form");
 const gotoEditTodo = document.querySelector("#gotoEditTodo");
 const updateRecords = document.querySelector(".updateRecords");
+
+
 //edit section variables
 const editTodo = document.querySelector(".editedTodo");
 const saveTodo = document.querySelector(".saveTodo");
+const cancelEdit = document.querySelector(".cancelEdit");
 let storageKey = "";
 console.log(editTodo)
 
@@ -81,31 +84,12 @@ todoList.addEventListener("click", (event) => {
     const clickTarget = event.target
     console.log(clickTarget);
     if (clickTarget.classList.contains("gotoEditTodo")) {
-        console.log("Edit button detected")
-      /*  const allItems = { ...localStorage }
-        console.log(clickTarget.classList[1])
-        for (let key in allItems) {
-            console.log(allItems[key], key);
-            if (key == clickTarget.classList[1]) {
-                console.log(key, allItems[key]);
-                editTodo.value = allItems[key];
-                storageKey = key;
-            }
-
-        } */
+        console.log("Edit button detected");
+        //location.reload() ;    
         rewriteTodo(clickTarget.classList[1]);
         updateRecords.classList.toggle("showUpdateRecords");
-    } else if (clickTarget.classList.contains("deleteTodo")) {
-        const allItems = { ...localStorage }
-        console.log(clickTarget.classList[1])
-        for (let key in allItems) {
-            console.log(allItems[key], key);
-            if (key == clickTarget.classList[1]) {
-                console.log(key);
-                localStorage.removeItem(key);
-            }
-
-        }
+    } else if (clickTarget.classList.contains("deleteTodo")) {      
+        deleteRecords(clickTarget.classList[1]);
         console.log("Delete the contains of this tag");
         //clickTarget.closest("li") to find nearest li tag - in this case parent
         console.log(clickTarget.closest("li"));
@@ -114,12 +98,13 @@ todoList.addEventListener("click", (event) => {
 })
 
 // edit records
-const rewriteTodo = (keyTarget) => {
+let rewriteTodo = (keyTarget) => {
     const allItems = { ...localStorage }  
     for (let key in allItems) {
         console.log(allItems[key], key);
         if (key == keyTarget) {
-            console.log(key, allItems[key]);
+            console.log(("Item to  edit is"), allItems[key]);
+            console.log("The key is ", key);
             editTodo.value = allItems[key];
             storageKey = key;
         }
@@ -139,3 +124,25 @@ const newUpdatedRecords = () => {
 }
 
 saveTodo.addEventListener("click", newUpdatedRecords)
+
+// return without updating records
+const cancelUpdate = () => {
+   // editTodo.value = "";
+    updateRecords.classList.toggle("showUpdateRecords");
+}
+
+cancelEdit.addEventListener("click", cancelUpdate)
+
+//delete records
+
+const deleteRecords = (keyTarget) => {
+      const allItems = { ...localStorage }       
+        for (let key in allItems) {
+            console.log(allItems[key], key);
+            if (key == keyTarget) {
+                console.log(key);
+                localStorage.removeItem(key);
+            }
+
+        }
+}
