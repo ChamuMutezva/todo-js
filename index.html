@@ -16,7 +16,7 @@
     <main>
         <form>
             <input type="text" class="addTodo" />
-            <input type="submit" value="ADD" />
+            <input type="submit" value="ADD" class="btnSubmit" />
         </form>
         <div class="container">
             <ul class="todoList">
@@ -33,8 +33,11 @@
             </li>
         -->
             </ul>
+            <div class="clearAllRecords">
+                <input type="button" value="Clear all" class="clearAll">
+            </div>
             <div class="updateRecords showUpdateRecords">
-                <h2>Edit record for</h2>
+                <h2 class="textMsg">Edit record for</h2>
                 <input type="text" class="editedTodo" />
                 <input type="button" value="Save" class="saveTodo">
                 <input type="button" value="Cancel" class="cancelEdit">

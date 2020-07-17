@@ -12,12 +12,62 @@ body {
 }
 .container {
     position: relative;
+    background-color: #689494;
+}
+.update {
+    margin-top: 10px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px;
+}
+.container,
+form input {
+    width: max(300px, 30%);
+    margin: auto;
+    padding: 10px;
+}
+input.btnSubmit {
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+li {
+    margin: 20px auto;
+    list-style: none;
+    font-size: 1.2rem;
+}
+input.clearAll,
+input.deleteTodo,
+input.gotoEditTodo {
+    padding: 3px;
+    width: 100px;
+    font-weight: 500;
+    font-size: 1.4rem;
 }
 .updateRecords {
     top: 0;
+    width: max(300px, 100%);
     position: absolute;
     background: aqua;
-    padding: 20px;   
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: auto;
+    left: 0;
+}
+input.editedTodo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 10px;
+}
+input.cancelEdit,
+input.saveTodo {
+    font-size: 1.4rem;
+    padding: 10px;
+    font-weight: 600;
 }
 .showUpdateRecords {
     visibility: hidden;

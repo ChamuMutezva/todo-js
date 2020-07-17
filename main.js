@@ -99,12 +99,14 @@ todoList.addEventListener("click", (event) => {
 
 // edit records
 let rewriteTodo = (keyTarget) => {
+    const textMsg = document.querySelector(".textMsg");
     const allItems = { ...localStorage }  
     for (let key in allItems) {
         console.log(allItems[key], key);
         if (key == keyTarget) {
             console.log(("Item to  edit is"), allItems[key]);
             console.log("The key is ", key);
+            textMsg.innerHTML = `Edit ${allItems[key]} record`
             editTodo.value = allItems[key];
             storageKey = key;
         }
