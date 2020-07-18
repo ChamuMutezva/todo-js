@@ -32,13 +32,13 @@ form {
 }
 input[type=checkbox] {
     /* padding: 10px; */
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     margin: 10px;
     /* opacity: 0; */
     /* transform: scale(2); */
 }
-input.deleteTodo, input.clearAll {
+input.deleteTodo, input.clearAllRecordsBtn {
     background-color: darkred;
     color: white;
 }
@@ -52,9 +52,10 @@ li {
     font-size: 1.2rem;
 }
 label.addTodoItem {
-   
+   color: red;
+   font-weight: 600;
 }
-input.clearAll,
+input.clearAllRecordsBtn,
 input.deleteTodo,
 input.gotoEditTodo {
     padding: 3px;
@@ -62,13 +63,26 @@ input.gotoEditTodo {
     font-weight: 500;
     font-size: 1.4rem;
 }
+input.gotoEditTodo {
+    background: #105110;
+    color: white;
+}
 input.btnSubmit {
     font-weight: 800;
     font-size: 1.2rem;
     border-radius: 10px;
-    /* outline: 0; */
+    background: #105110;
+    color: white;
     border: transparent;
     box-shadow: 1px 1px 1px 1px dimgrey;
+}
+
+input[type="button"]:hover
+{
+    transform: scale(0.9);
+}
+input.btnSubmit:hover{
+    transform: scale(0.95);
 }
 
 input.addTodo {
@@ -102,7 +116,17 @@ input.saveTodo {
     font-size: 1.4rem;
     padding: 10px;
     font-weight: 600;
+    color: white;
+}
+ input.saveTodo {    
+    background: #105110;   
+}
+input.cancelEdit {
+    background-color: darkred;
 }
 .showUpdateRecords {
+    visibility: hidden;
+}
+.hideClearAllRecords {
     visibility: hidden;
 }

@@ -2,7 +2,8 @@ const addTodo = document.querySelector(".addTodo"); // input text for adding tod
 const form = document.querySelector("form");
 const gotoEditTodo = document.querySelector("#gotoEditTodo");
 const updateRecords = document.querySelector(".updateRecords");
-const clearAllRecords = document.querySelector(".clearAll");
+const clearAllRecordsBtn = document.querySelector(".clearAllRecordsBtn");
+const clearAllRecordsDiv = document.querySelector(".clearAllRecordsDiv")
 let validateEntries = true;
 
 //edit section variables
@@ -11,7 +12,7 @@ const saveTodo = document.querySelector(".saveTodo");
 const cancelEdit = document.querySelector(".cancelEdit");
 let count = 0;
 let storageKey = "";
-console.log(editTodo)
+console.log(clearAllRecordsDiv)
 
 //end edit section
 const todoList = document.querySelector(".todoList")
@@ -36,17 +37,25 @@ const addTemplate = (elementValue, htmlTag, indexed) => {
 
 const populateLi = () => {
     //get allitems in localStorage
-   // let count = 0
+    // let count = 0
     const allItems = { ...localStorage }
     console.log(allItems);
     for (let key in allItems) {
         const li = document.createElement("li");
-       // console.log(count)
+        // console.log(count)
         console.log(allItems[key], key);
         addTemplate(allItems[key], li, key);
         todoList.appendChild(li);
-        //count = count + 1;
+        //count = count + 1
     }
+
+    /*if todoList has no children , hide the clearAll section
+    console.log(todoList.childNodes.length)
+    if (todoList.childNodes.length == 0) {
+        clearAllRecordsDiv.classList.add("hideClearAllRecords")
+    } else {
+        clearAllRecordsDiv.classList.remove("hideClearAllRecords")
+    } */
 
 }
 populateLi()
@@ -64,7 +73,7 @@ form.addEventListener("submit", (event) => {
     console.log(addTodo.value);
 
     validateEmpty(addTodo.value);
-    if(validateEntries == false) {
+    if (validateEntries == false) {
         return;
     }
 
@@ -78,10 +87,10 @@ form.addEventListener("submit", (event) => {
     do {
         count = count + 1;
         keyCount = "todo" + count;
-    } while ((keyCount in {...localStorage}));
+    } while ((keyCount in { ...localStorage }));
 
     console.log("Localstorage ", count) //changed localStorage.length to count
-    localStorage.setItem(keyCount , addTodo.value); //changed localStorage.length to count
+    localStorage.setItem(keyCount, addTodo.value); //changed localStorage.length to count
     // todoValue = todo + addTodo.value
 
     // li.innerHTML = todoTemplate
@@ -110,7 +119,7 @@ todoList.addEventListener("click", (event) => {
         //location.reload() ;    
         rewriteTodo(clickTarget.classList[1]);
         updateRecords.classList.toggle("showUpdateRecords");
-    } else if (clickTarget.classList.contains("deleteTodo")) {      
+    } else if (clickTarget.classList.contains("deleteTodo")) {
         deleteRecord(clickTarget.classList[1]);
         console.log("Delete the contains of this tag");
         //clickTarget.closest("li") to find nearest li tag - in this case parent
@@ -122,7 +131,7 @@ todoList.addEventListener("click", (event) => {
 // edit records
 let rewriteTodo = (keyTarget) => {
     const textMsg = document.querySelector(".textMsg");
-    const allItems = { ...localStorage }  
+    const allItems = { ...localStorage }
     for (let key in allItems) {
         console.log(allItems[key], key);
         if (key == keyTarget) {
@@ -151,34 +160,33 @@ saveTodo.addEventListener("click", newUpdatedRecords)
 
 // return without updating records
 const cancelUpdate = () => {
-   // editTodo.value = "";
+    // editTodo.value = "";
     updateRecords.classList.toggle("showUpdateRecords");
 }
 
 cancelEdit.addEventListener("click", cancelUpdate)
 
 //delete a single record
-
 const deleteRecord = (keyTarget) => {
-      const allItems = { ...localStorage }       
-        for (let key in allItems) {
-            console.log(allItems[key], key);
-            if (key == keyTarget) {
-                console.log(key);
-                localStorage.removeItem(key);
-            }
-
+    const allItems = { ...localStorage }
+    for (let key in allItems) {
+        console.log(allItems[key], key);
+        if (key == keyTarget) {
+            console.log(key);
+            localStorage.removeItem(key);
         }
+
+    }
 }
 
 //delete all Records
 const deleteAllRecords = () => {
     localStorage.clear()
-    while(todoList.firstChild){
+    while (todoList.firstChild) {
         todoList.removeChild(todoList.firstChild);
-    }   
+    }
 }
-clearAllRecords.addEventListener("click", deleteAllRecords);
+clearAllRecordsBtn.addEventListener("click", deleteAllRecords);
 
 //validate empty entries
 const validateEmpty = (valueTag) => {
@@ -188,7 +196,7 @@ const validateEmpty = (valueTag) => {
         alert("Enter a todo item");
         errorMsg.innerHTML = "Enter a todo item, invalid entry"
         validateEntries = false;
-    } else if(valueTag.trim().length < 2) {
+    } else if (valueTag.trim().length < 2) {
         alert("A todo item has to have at least 2 letters");
         errorMsg.innerHTML = "A todo item has to have at least 2 letters";
         validateEntries = false
