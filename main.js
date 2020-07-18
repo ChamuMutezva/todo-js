@@ -228,12 +228,24 @@ const validateEmpty = (valueTag) => {
 }
 
 const validateDuplicate = () => {
-    for (let elem in { ...localStorage }) {
+   
+    const exists = Object.values({...localStorage});
+    const existsLowerCase = exists.map(element => element.toLowerCase().trim())
+    console.log(Object.values(existsLowerCase));
+    if (existsLowerCase.includes(addTodo.value.toLowerCase().trim())) {
+        return true;
+    } else {
+        return false
+    }
+  /*  for (let elem in { ...localStorage }) {
         // let store = localStorage[elem];
         if (localStorage[elem].toLowerCase().trim() === addTodo.value.toLowerCase().trim()) {
+            console.log("What is happening here")
             return true
         } else {
             return false
         }
     }
+    */
+   return false
 }
