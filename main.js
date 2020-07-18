@@ -3,7 +3,8 @@ const form = document.querySelector("form");
 const gotoEditTodo = document.querySelector("#gotoEditTodo");
 const updateRecords = document.querySelector(".updateRecords");
 const clearAllRecordsBtn = document.querySelector(".clearAllRecordsBtn");
-const clearAllRecordsDiv = document.querySelector(".clearAllRecordsDiv")
+const clearAllRecordsDiv = document.querySelector(".clearAllRecordsDiv");
+
 let validateEntries = true;
 
 //edit section variables
@@ -37,25 +38,23 @@ const addTemplate = (elementValue, htmlTag, indexed) => {
 
 const populateLi = () => {
     //get allitems in localStorage
-    // let count = 0
+    const title = document.querySelector(".title");
+    title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
+        ? "1 task to be done" : `${localStorage.length} tasks to be done`
     const allItems = { ...localStorage }
     console.log(allItems);
+    console.log(localStorage.length)
     for (let key in allItems) {
         const li = document.createElement("li");
-        // console.log(count)
         console.log(allItems[key], key);
         addTemplate(allItems[key], li, key);
         todoList.appendChild(li);
         //count = count + 1
     }
 
-    /*if todoList has no children , hide the clearAll section
-    console.log(todoList.childNodes.length)
-    if (todoList.childNodes.length == 0) {
-        clearAllRecordsDiv.classList.add("hideClearAllRecords")
-    } else {
-        clearAllRecordsDiv.classList.remove("hideClearAllRecords")
-    } */
+    const checkedItems = Array.from(document.querySelectorAll("input[type=checkbox]"));
+    console.log(checkedItems);
+
 
 }
 populateLi()
@@ -89,16 +88,32 @@ form.addEventListener("submit", (event) => {
         keyCount = "todo" + count;
     } while ((keyCount in { ...localStorage }));
 
-    console.log("Localstorage ", count) //changed localStorage.length to count
+    console.log("Localstorage ", count) //changed localStorage.length to count  
+
+
+    // (Object.values(localStorage).includes(addTodo.value)) 
+     //verify if element is not already in localstorage
+    validateDuplicate();
+    console.log(validateDuplicate())
+    if (validateDuplicate()) {
+        const errorMsg = document.querySelector(".addTodoItem");
+        alert("This todo is already on your list");
+        errorMsg.innerHTML = "This todo is already on your list";
+    } else {
+
     localStorage.setItem(keyCount, addTodo.value); //changed localStorage.length to count
     // todoValue = todo + addTodo.value
-
     // li.innerHTML = todoTemplate
     addTemplate(addTodo.value, li, "todo" + count); //changed localStorage.length to count
     todoList.appendChild(li);
+
+    const title = document.querySelector(".title");
+    title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
+        ? "1 task to be done" : `${localStorage.length} tasks to be done`
+
     addTodo.value = "";
     count = count + 1; //set new key value
-
+    }
 })
 
 
@@ -177,6 +192,9 @@ const deleteRecord = (keyTarget) => {
         }
 
     }
+    const title = document.querySelector(".title");
+    title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
+        ? "1 task to be done" : `${localStorage.length} tasks to be done`
 }
 
 //delete all Records
@@ -185,6 +203,9 @@ const deleteAllRecords = () => {
     while (todoList.firstChild) {
         todoList.removeChild(todoList.firstChild);
     }
+    const title = document.querySelector(".title");
+    title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
+        ? "1 task to be done" : `${localStorage.length} tasks to be done`
 }
 clearAllRecordsBtn.addEventListener("click", deleteAllRecords);
 
@@ -203,5 +224,16 @@ const validateEmpty = (valueTag) => {
     } else {
         errorMsg.innerHTML = "Enter a todo item"
         validateEntries = true
+    }
+}
+
+const validateDuplicate = () => {
+    for (let elem in { ...localStorage }) {
+        // let store = localStorage[elem];
+        if (localStorage[elem].toLowerCase().trim() === addTodo.value.toLowerCase().trim()) {
+            return true
+        } else {
+            return false
+        }
     }
 }
