@@ -38,6 +38,12 @@ input[type=checkbox] {
     /* opacity: 0; */
     /* transform: scale(2); */
 }
+li label {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
 input.deleteTodo, input.clearAllRecordsBtn {
     background-color: darkred;
     color: white;
