@@ -3,6 +3,7 @@ const form = document.querySelector("form");
 const gotoEditTodo = document.querySelector("#gotoEditTodo");
 const updateRecords = document.querySelector(".updateRecords");
 const clearAllRecords = document.querySelector(".clearAll");
+let validateEntries = true;
 
 //edit section variables
 const editTodo = document.querySelector(".editedTodo");
@@ -24,8 +25,8 @@ const addTemplate = (elementValue, htmlTag, indexed) => {
                     <label> 
                          <input type="checkbox" id="${indexed}"/> <span>${elementValue}</span>
                     </label>
-                    <div class="update">
-                        <input type="button" value="Edit" class="gotoEditTodo ${indexed}">
+                    <div class="update">                        
+                        <input type="button" value="Edit" class="gotoEditTodo ${indexed}">                        
                         <input type="button" value="Delete" class="deleteTodo ${indexed}">
                     </div>
                  `
@@ -61,13 +62,19 @@ form.addEventListener("submit", (event) => {
     event.preventDefault()
     console.log(event)
     console.log(addTodo.value);
+
+    validateEmpty(addTodo.value);
+    if(validateEntries == false) {
+        return;
+    }
+
     if (count == 0) {
         count = localStorage.length + 1;
     }
     let keyCount = "todo" + count;
     console.log(`Key count is ${keyCount}`);
 
-    // check if there is a similar key udpate count until no match is found
+    // check if there is a similar key,  udpate count until no match is found
     do {
         count = count + 1;
         keyCount = "todo" + count;
@@ -80,6 +87,7 @@ form.addEventListener("submit", (event) => {
     // li.innerHTML = todoTemplate
     addTemplate(addTodo.value, li, "todo" + count); //changed localStorage.length to count
     todoList.appendChild(li);
+    addTodo.value = "";
     count = count + 1; //set new key value
 
 })
@@ -171,3 +179,21 @@ const deleteAllRecords = () => {
     }   
 }
 clearAllRecords.addEventListener("click", deleteAllRecords);
+
+//validate empty entries
+const validateEmpty = (valueTag) => {
+    const errorMsg = document.querySelector(".addTodoItem");
+    console.log(errorMsg)
+    if (valueTag.trim() == "") {
+        alert("Enter a todo item");
+        errorMsg.innerHTML = "Enter a todo item, invalid entry"
+        validateEntries = false;
+    } else if(valueTag.trim().length < 2) {
+        alert("A todo item has to have at least 2 letters");
+        errorMsg.innerHTML = "A todo item has to have at least 2 letters";
+        validateEntries = false
+    } else {
+        errorMsg.innerHTML = "Enter a todo item"
+        validateEntries = true
+    }
+}
