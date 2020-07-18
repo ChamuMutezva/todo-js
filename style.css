@@ -10,6 +10,10 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
 }
+nav {
+    width: 300px;
+    margin: 25px auto;
+}
 .container {
     position: relative;
     background-color: #689494;
@@ -22,6 +26,16 @@ form {
     flex-direction: column;
     gap: 10px;
     margin: 10px;
+}
+.toggleForm  {
+    display: none;
+}
+
+.container {
+    display: none;
+}
+.toggleContainer {
+    display: block;
 }
 .container, form input {
     width: max(300px, 30%);
@@ -53,10 +67,34 @@ input.btnSubmit {
     font-size: 1.2rem;
 }
 li {
+    position: relative;
     margin: 20px auto;
     list-style: none;
     font-size: 1.2rem;
+    border: 3px solid blue;
+    padding: 10px;
+    border-radius: 5px;
 }
+li::before {
+    content: "";
+    border: 1px solid blue;
+   /* border: 6px solid;    
+    border-image: linear-gradient(85deg, #fdc468, #df4996) 1; */
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+/*
+li::after {
+    content: "";
+    border: 1px solid blue;
+    position: absolute;
+    top: 110px;
+    width: 100%;
+    left: 0;
+    
+}*/
 label.addTodoItem {
    color: red;
    font-weight: 600;
@@ -68,6 +106,9 @@ input.gotoEditTodo {
     width: 100px;
     font-weight: 500;
     font-size: 1.4rem;
+}
+input.clearAllRecordsBtn {
+    margin-top: 12px;
 }
 input.gotoEditTodo {
     background: #105110;
@@ -139,3 +180,95 @@ input.cancelEdit {
 .hideClearAllRecords {
     visibility: hidden;
 }
+
+.hideTodos {
+    display: none;
+}
+
+
+
+/* slder */
+.switch {
+    margin-top: 0px;
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 25px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .swithCtl {
+    margin: 15px auto 0;
+    /*width: 60%;*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    font-weight: 700;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: -webkit-gradient(linear, left top, right top, from(#378fe6), to(#3eda82));
+    background: linear-gradient(to right, #378fe6, #3eda82);
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .switchLight {
+    background: #aeb3cb;
+  }
+  
+  .switchLight:hover {
+    background: -webkit-gradient(linear, left top, right top, from(#378fe6), to(#3eda82));
+    background: linear-gradient(to right, #378fe6, #3eda82);
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 6px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #ccc;
+  }
+  
+  input:focus + .slider {
+    -webkit-box-shadow: 0 0 1px #2196F3;
+            box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    background-color: #1e202a;
+    -webkit-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  

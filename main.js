@@ -4,6 +4,8 @@ const gotoEditTodo = document.querySelector("#gotoEditTodo");
 const updateRecords = document.querySelector(".updateRecords");
 const clearAllRecordsBtn = document.querySelector(".clearAllRecordsBtn");
 const clearAllRecordsDiv = document.querySelector(".clearAllRecordsDiv");
+const switchCtl = document.querySelector(".slider");
+console.log(switchCtl);
 
 let validateEntries = true;
 
@@ -13,13 +15,30 @@ const saveTodo = document.querySelector(".saveTodo");
 const cancelEdit = document.querySelector(".cancelEdit");
 let count = 0;
 let storageKey = "";
-console.log(clearAllRecordsDiv)
+//console.log(clearAllRecordsDiv)
 
 //end edit section
 const todoList = document.querySelector(".todoList")
 let todoValue = ""
-console.log(addTodo);
-console.log(form)
+//console.log(addTodo);
+//console.log(form)
+
+// switch/slider control
+switchCtl.addEventListener("click", ()=> {
+    const formCtrl = document.querySelector(".formCtrl");
+    const container = document.querySelector(".container");
+    const themeTextCtl = document.querySelector(".themeTextCtl");
+    console.log(container)
+    formCtrl.classList.toggle("toggleForm")
+    container.classList.toggle("toggleContainer")
+    console.log("Slider on and off")
+
+    if(themeTextCtl.innerHTML == "Switch to Edit") {
+        themeTextCtl.innerHTML = "Switch to Add" 
+    } else {
+        themeTextCtl.innerHTML = "Switch to Edit" 
+    }
+})
 
 const addTemplate = (elementValue, htmlTag, indexed) => {
     const todoTemplate = `          
@@ -92,7 +111,7 @@ form.addEventListener("submit", (event) => {
 
 
     // (Object.values(localStorage).includes(addTodo.value)) 
-     //verify if element is not already in localstorage
+    //verify if element is not already in localstorage
     validateDuplicate();
     console.log(validateDuplicate())
     if (validateDuplicate()) {
@@ -101,18 +120,18 @@ form.addEventListener("submit", (event) => {
         errorMsg.innerHTML = "This todo is already on your list";
     } else {
 
-    localStorage.setItem(keyCount, addTodo.value); //changed localStorage.length to count
-    // todoValue = todo + addTodo.value
-    // li.innerHTML = todoTemplate
-    addTemplate(addTodo.value, li, "todo" + count); //changed localStorage.length to count
-    todoList.appendChild(li);
+        localStorage.setItem(keyCount, addTodo.value); //changed localStorage.length to count
+        // todoValue = todo + addTodo.value
+        // li.innerHTML = todoTemplate
+        addTemplate(addTodo.value, li, "todo" + count); //changed localStorage.length to count
+        todoList.appendChild(li);
 
-    const title = document.querySelector(".title");
-    title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
-        ? "1 task to be done" : `${localStorage.length} tasks to be done`
+        const title = document.querySelector(".title");
+        title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
+            ? "1 task to be done" : `${localStorage.length} tasks to be done`
 
-    addTodo.value = "";
-    count = count + 1; //set new key value
+        addTodo.value = "";
+        count = count + 1; //set new key value
     }
 })
 
@@ -130,6 +149,8 @@ todoList.addEventListener("click", (event) => {
     const clickTarget = event.target
     console.log(clickTarget);
     if (clickTarget.classList.contains("gotoEditTodo")) {
+        const todoWrapper = document.querySelector(".todoWrapper");
+        todoWrapper.classList.add("hideTodos");
         console.log("Edit button detected");
         //location.reload() ;    
         rewriteTodo(clickTarget.classList[1]);
@@ -162,6 +183,8 @@ let rewriteTodo = (keyTarget) => {
 
 //update records
 const newUpdatedRecords = () => {
+    const todoWrapper = document.querySelector(".todoWrapper");
+    todoWrapper.classList.remove("hideTodos");
     localStorage.setItem(storageKey, editTodo.value);
     updateRecords.classList.toggle("showUpdateRecords");
     //change the text in the span 
@@ -176,6 +199,8 @@ saveTodo.addEventListener("click", newUpdatedRecords)
 // return without updating records
 const cancelUpdate = () => {
     // editTodo.value = "";
+    const todoWrapper = document.querySelector(".todoWrapper");
+    todoWrapper.classList.remove("hideTodos");
     updateRecords.classList.toggle("showUpdateRecords");
 }
 
@@ -228,8 +253,8 @@ const validateEmpty = (valueTag) => {
 }
 
 const validateDuplicate = () => {
-   
-    const exists = Object.values({...localStorage});
+
+    const exists = Object.values({ ...localStorage });
     const existsLowerCase = exists.map(element => element.toLowerCase().trim())
     console.log(Object.values(existsLowerCase));
     if (existsLowerCase.includes(addTodo.value.toLowerCase().trim())) {
@@ -237,15 +262,15 @@ const validateDuplicate = () => {
     } else {
         return false
     }
-  /*  for (let elem in { ...localStorage }) {
-        // let store = localStorage[elem];
-        if (localStorage[elem].toLowerCase().trim() === addTodo.value.toLowerCase().trim()) {
-            console.log("What is happening here")
-            return true
-        } else {
-            return false
-        }
-    }
-    */
-   return false
+    /*  for (let elem in { ...localStorage }) {
+          // let store = localStorage[elem];
+          if (localStorage[elem].toLowerCase().trim() === addTodo.value.toLowerCase().trim()) {
+              console.log("What is happening here")
+              return true
+          } else {
+              return false
+          }
+      }
+      */
+    return false
 }

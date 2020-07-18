@@ -5,28 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Todo For 2020</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
     <header>
-        <h1>Todo List for this year</h1>
+        <!-- <h1>Todo List for this year</h1> -->
+        <nav>
+            <div class="swithCtl">
+                <div><span class="themeTextCtl">Switch to Edit</span> Task</div>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </nav>
     </header>
     <main>
-        <form>
-            <label for="addTodos" class="addTodoItem">Enter a todo item             
-            </label> 
-            <input type="text" class="addTodo" id="addTodos"/>           
+        <form class="formCtrl">
+            <label for="addTodos" class="addTodoItem">Enter a todo item
+            </label>
+            <input type="text" class="addTodo" id="addTodos" />
             <input type="submit" value="ADD" class="btnSubmit" />
         </form>
         <div class="container">
-            <h2 class="title">Items to be done</h2>
-            <ul class="todoList"></ul>     
-            
+            <div class="todoWrapper">
+                <h2 class="title">Items to be done</h2>
+                <ul class="todoList"></ul>
+            </div>
+
             <div class="clearAllRecordsDiv">
                 <input type="button" value="Clear all" class="clearAllRecordsBtn">
             </div>
+
             <div class="updateRecords showUpdateRecords">
                 <h2 class="textMsg">Edit record for</h2>
                 <input type="text" class="editedTodo" />
