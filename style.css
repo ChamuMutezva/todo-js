@@ -102,16 +102,7 @@ li::before {
     left: 0;
     top: -3px;
 }
-/*
-li::after {
-    content: "";
-    border: 1px solid blue;
-    position: absolute;
-    top: 110px;
-    width: 100%;
-    left: 0;
-    
-}*/
+
 label.addTodoItem {
    color: black;
    font-weight: 600;

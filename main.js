@@ -8,6 +8,8 @@ const switchCtl = document.querySelector(".slider");
 console.log(switchCtl);
 
 let validateEntries = true;
+const todoList = document.querySelector(".todoList")
+let todoValue = ""
 
 //edit section variables
 const editTodo = document.querySelector(".editedTodo");
@@ -15,13 +17,7 @@ const saveTodo = document.querySelector(".saveTodo");
 const cancelEdit = document.querySelector(".cancelEdit");
 let count = 0;
 let storageKey = "";
-//console.log(clearAllRecordsDiv)
-
 //end edit section
-const todoList = document.querySelector(".todoList")
-let todoValue = ""
-//console.log(addTodo);
-//console.log(form)
 
 // switch/slider control
 switchCtl.addEventListener("click", () => {
@@ -217,6 +213,8 @@ const deleteAllRecords = () => {
     const title = document.querySelector(".title");
     title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
         ? "1 task to be done" : `${localStorage.length} tasks to be done`
+
+        
 }
 clearAllRecordsBtn.addEventListener("click", deleteAllRecords);
 
@@ -239,7 +237,7 @@ const validateEmpty = (valueTag) => {
 }
 
 const validateDuplicate = () => {
-//check for elements that are already in the list and reject addition
+    //check for elements that are already in the list and reject addition
     const exists = Object.values({ ...localStorage });
     const existsLowerCase = exists.map(element => element.toLowerCase().trim())
     console.log(Object.values(existsLowerCase));
