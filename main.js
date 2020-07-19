@@ -24,7 +24,7 @@ let todoValue = ""
 //console.log(form)
 
 // switch/slider control
-switchCtl.addEventListener("click", ()=> {
+switchCtl.addEventListener("click", () => {
     const formCtrl = document.querySelector(".formCtrl");
     const container = document.querySelector(".container");
     const themeTextCtl = document.querySelector(".themeTextCtl");
@@ -33,10 +33,10 @@ switchCtl.addEventListener("click", ()=> {
     container.classList.toggle("toggleContainer")
     console.log("Slider on and off")
 
-    if(themeTextCtl.innerHTML == "Switch to Edit") {
-        themeTextCtl.innerHTML = "Switch to Add" 
+    if (themeTextCtl.innerHTML == "Switch to Edit") {
+        themeTextCtl.innerHTML = "Switch to Add"
     } else {
-        themeTextCtl.innerHTML = "Switch to Edit" 
+        themeTextCtl.innerHTML = "Switch to Edit"
     }
 })
 
@@ -89,7 +89,6 @@ form.addEventListener("submit", (event) => {
     event.preventDefault()
     console.log(event)
     console.log(addTodo.value);
-
     validateEmpty(addTodo.value);
     if (validateEntries == false) {
         return;
@@ -107,8 +106,6 @@ form.addEventListener("submit", (event) => {
         keyCount = "todo" + count;
     } while ((keyCount in { ...localStorage }));
 
-    console.log("Localstorage ", count) //changed localStorage.length to count  
-
 
     // (Object.values(localStorage).includes(addTodo.value)) 
     //verify if element is not already in localstorage
@@ -120,9 +117,7 @@ form.addEventListener("submit", (event) => {
         errorMsg.innerHTML = "This todo is already on your list";
     } else {
 
-        localStorage.setItem(keyCount, addTodo.value); //changed localStorage.length to count
-        // todoValue = todo + addTodo.value
-        // li.innerHTML = todoTemplate
+        localStorage.setItem(keyCount, addTodo.value); //changed localStorage.length to count        
         addTemplate(addTodo.value, li, "todo" + count); //changed localStorage.length to count
         todoList.appendChild(li);
 
@@ -135,15 +130,6 @@ form.addEventListener("submit", (event) => {
     }
 })
 
-
-/*if (typeof(gotoEditTodo) != "undefined" && gotoEditTodo != null){
-    gotoEditTodo.addEventListener("click", () => {
-        const childName = localStorage.getItem("todo1");
-        console.log(childName);
-    })
-//}
-*/
-
 todoList.addEventListener("click", (event) => {
 
     const clickTarget = event.target
@@ -152,7 +138,6 @@ todoList.addEventListener("click", (event) => {
         const todoWrapper = document.querySelector(".todoWrapper");
         todoWrapper.classList.add("hideTodos");
         console.log("Edit button detected");
-        //location.reload() ;    
         rewriteTodo(clickTarget.classList[1]);
         updateRecords.classList.toggle("showUpdateRecords");
     } else if (clickTarget.classList.contains("deleteTodo")) {
@@ -224,7 +209,8 @@ const deleteRecord = (keyTarget) => {
 
 //delete all Records
 const deleteAllRecords = () => {
-    localStorage.clear()
+    localStorage.clear() //remove all data in the localStorage
+    //remove all elements that are populated using localStorage data
     while (todoList.firstChild) {
         todoList.removeChild(todoList.firstChild);
     }
@@ -253,7 +239,7 @@ const validateEmpty = (valueTag) => {
 }
 
 const validateDuplicate = () => {
-
+//check for elements that are already in the list and reject addition
     const exists = Object.values({ ...localStorage });
     const existsLowerCase = exists.map(element => element.toLowerCase().trim())
     console.log(Object.values(existsLowerCase));
@@ -262,15 +248,6 @@ const validateDuplicate = () => {
     } else {
         return false
     }
-    /*  for (let elem in { ...localStorage }) {
-          // let store = localStorage[elem];
-          if (localStorage[elem].toLowerCase().trim() === addTodo.value.toLowerCase().trim()) {
-              console.log("What is happening here")
-              return true
-          } else {
-              return false
-          }
-      }
-      */
+
     return false
 }

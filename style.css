@@ -5,7 +5,7 @@
 }
 body {
     text-align: center;
-    background-color: aquamarine;
+    background-color: #bfd0da;
     padding: 20px;
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
@@ -13,10 +13,23 @@ body {
 nav {
     width: 300px;
     margin: 25px auto;
+    background: #577897;
+    color: white;
+    border-radius: 5px;
+    padding: 15px;
+}
+h1 {
+    font-size: 0.9rem;
+}
+h2.title {
+    font-size: 0.9rem;
+}
+.todoWrapper {
+    color: white;
 }
 .container {
     position: relative;
-    background-color: #689494;
+    background-color: #577897;
 }
 .update {
     margin-top: 10px;
@@ -42,7 +55,7 @@ form {
     margin: auto;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 1px 1px 1px 3px dimgrey;
+    box-shadow: 1px 1px 1px 3px #577897;
 }
 input[type=checkbox] {
     /* padding: 10px; */
@@ -71,19 +84,23 @@ li {
     margin: 20px auto;
     list-style: none;
     font-size: 1.2rem;
-    border: 3px solid blue;
+    border: 3px solid #dbd858;
     padding: 10px;
     border-radius: 5px;
 }
 li::before {
     content: "";
-    border: 1px solid blue;
-   /* border: 6px solid;    
-    border-image: linear-gradient(85deg, #fdc468, #df4996) 1; */
+    border: 7px solid;
+    border-image-source: linear-gradient(45deg, rgb(244 88 127), rgb(82 23 46));
+    border-image-slice: 1;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
     position: absolute;
     width: 100%;
+    border-radius: 20%;
     left: 0;
-    top: 0;
+    top: -3px;
 }
 /*
 li::after {
@@ -203,8 +220,8 @@ input.cancelEdit {
   }
   
   .swithCtl {
-    margin: 15px auto 0;
-    /*width: 60%;*/
+   /* margin: 15px auto 0;
+    width: 60%;*/
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -225,16 +242,8 @@ input.cancelEdit {
     background: linear-gradient(to right, #378fe6, #3eda82);
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .switchLight {
-    background: #aeb3cb;
-  }
-  
-  .switchLight:hover {
-    background: -webkit-gradient(linear, left top, right top, from(#378fe6), to(#3eda82));
-    background: linear-gradient(to right, #378fe6, #3eda82);
-  }
+  } 
+ 
   
   .slider:before {
     position: absolute;
