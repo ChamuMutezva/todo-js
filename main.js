@@ -5,7 +5,7 @@ const updateRecords = document.querySelector(".updateRecords");
 const clearAllRecordsBtn = document.querySelector(".clearAllRecordsBtn");
 const clearAllRecordsDiv = document.querySelector(".clearAllRecordsDiv");
 const switchCtl = document.querySelector(".slider");
-console.log(switchCtl);
+
 
 let validateEntries = true;
 const todoList = document.querySelector(".todoList")
@@ -40,7 +40,7 @@ const addTemplate = (elementValue, htmlTag, indexed) => {
     const todoTemplate = `          
                                    
                     <label> 
-                         <input type="checkbox" id="${indexed}"/> <span>${elementValue}</span>
+                         <input type="checkbox"  class="completed" id="${indexed}"/> <span>${elementValue}</span>
                     </label>
                     <div class="update">                        
                         <input type="button" value="Edit" class="gotoEditTodo ${indexed}">                        
@@ -50,6 +50,27 @@ const addTemplate = (elementValue, htmlTag, indexed) => {
     htmlTag.innerHTML = todoTemplate
 }
 
+const completedTasks = () => {
+    let countCompletedTasks = 0;
+    const completed = Array.from(document.querySelectorAll(".completed"))
+    console.log(completed)
+    // set checked for some items
+    completed.forEach((element, index) => {
+        if (index % 2 === 0){
+            element.checked = true;
+        }
+    })
+    completed.forEach(element => {
+        console.log(element)
+        if (element.checked) {
+            console.log("This has been done")
+            countCompletedTasks++;
+        } else {
+            console.log("not done yet")
+        }
+    })
+    console.log(`${countCompletedTasks} tasks has been completed`)
+}
 
 const populateLi = () => {
     //get allitems in localStorage
@@ -70,7 +91,7 @@ const populateLi = () => {
     const checkedItems = Array.from(document.querySelectorAll("input[type=checkbox]"));
     console.log(checkedItems);
 
-
+    completedTasks();
 }
 populateLi()
 
@@ -214,7 +235,7 @@ const deleteAllRecords = () => {
     title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
         ? "1 task to be done" : `${localStorage.length} tasks to be done`
 
-        
+
 }
 clearAllRecordsBtn.addEventListener("click", deleteAllRecords);
 
@@ -249,3 +270,4 @@ const validateDuplicate = () => {
 
     return false
 }
+
