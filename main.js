@@ -53,6 +53,7 @@ const addTemplate = (elementValue, htmlTag, indexed) => {
 const completedTasks = () => {
     let countCompletedTasks = 0;
     const completed = Array.from(document.querySelectorAll(".completed"))
+    const completedTitle = document.querySelector(".completedTitle");
     console.log(completed)
     // set checked for some items
     completed.forEach((element, index) => {
@@ -70,13 +71,14 @@ const completedTasks = () => {
         }
     })
     console.log(`${countCompletedTasks} tasks has been completed`)
+    completedTitle.innerHTML = `${countCompletedTasks} tasks has been completed`
 }
 
 const populateLi = () => {
     //get allitems in localStorage
     const title = document.querySelector(".title");
     title.innerHTML = localStorage.length == 0 ? "No Tasks yet" : localStorage.length == 1
-        ? "1 task to be done" : `${localStorage.length} tasks to be done`
+        ? "1 task to be done" : `${localStorage.length} tasks in total`
     const allItems = { ...localStorage }
     console.log(allItems);
     console.log(localStorage.length)
