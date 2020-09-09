@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "todo-app-bd228"
+    "default": "todo-app-bd228",
+    "staging": "todo-app-bd228"
   }
 }
